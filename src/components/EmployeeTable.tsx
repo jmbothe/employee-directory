@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { EmployeeListItem } from "../domain/EmployeeListItem";
 import useRuntime from "../runtime/useRuntime";
 
-export default function EmployeeList() {
-    const [employees, setEmployees] = useState([]);
+interface EmployeeListProps {
+    searchValue: string;
+}
+
+export default function EmployeeList({
+    searchValue
+}: EmployeeListProps) {
+    const [employees, setEmployees] = useState<EmployeeListItem[]>([]);
     const {getEmployeeRepository} = useRuntime();
 
     useEffect(function() {
-        getEmployeeRepository().getEmployees()
-            .then(setEmployees);
-    }, [getEmployeeRepository]);
+        if (searchValue) {
+            getEmployeeRepository()
+                .searchEmployees(searchValue)
+                .then(setEmployees);
+        }
+    }, [searchValue, getEmployeeRepository]);
 
     const listItems = employees.map(({name, id}) => (
         <li key={id}>{name}</li>

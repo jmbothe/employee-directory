@@ -6,9 +6,17 @@ import RuntimeContext from './runtime/RuntimeContext';
 const runtime = createDevRuntime();
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <RuntimeContext.Provider value={runtime}>
-        <EmployeeTable />
+      <SearchInput
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+      <EmployeeList
+        searchValue={searchValue}
+      />
     </RuntimeContext.Provider>
   );
 }

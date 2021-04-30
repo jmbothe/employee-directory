@@ -9,3 +9,17 @@ test('should render the employee list', async () => {
 
   expect(tableHeading).toBeInTheDocument();
 });
+
+test('should search for employees', async () => {
+  render(<App />);
+
+  userEvent.type(
+    screen.getByLabelText("Search employees by name"),
+    'Arbitrary'
+  );
+
+  const employee = await screen.findByText(/Rick Sanchez/i);
+
+  expect(employee).toBeInTheDocument();
+});
+

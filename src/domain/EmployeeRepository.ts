@@ -1,5 +1,5 @@
-import { Employee } from "./Employee";
+import { EmployeeListItem } from "./EmployeeListItem";
 
 export interface EmployeeRepository {
-    getEmployees(): Promise<Employee[]>;
+    searchEmployees(name: string): Promise<EmployeeListItem[]>;
 }
