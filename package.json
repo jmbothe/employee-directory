@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "preview": "REACT_APP_PREVIEW_MODE=true npm start"
   },
   "eslintConfig": {
     "extends": [

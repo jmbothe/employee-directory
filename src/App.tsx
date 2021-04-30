@@ -1,15 +1,13 @@
-import React from 'react';
-import createDevRuntime from './adapter-dev/createDevRuntime';
-import EmployeeTable from './components/EmployeeTable';
-import RuntimeContext from './runtime/RuntimeContext';
-
-const runtime = createDevRuntime();
+import React, { useState } from "react";
+import EmployeeList from "./components/EmployeeTable";
+import SearchInput from "./components/SearchInput";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
 
   return (
-    <RuntimeContext.Provider value={runtime}>
+    <section>
+      <h1>Employee Directory</h1>
       <SearchInput
         searchValue={searchValue}
         setSearchValue={setSearchValue}
@@ -17,7 +15,7 @@ function App() {
       <EmployeeList
         searchValue={searchValue}
       />
-    </RuntimeContext.Provider>
+    </section>
   );
 }
 
