@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -23,7 +24,9 @@ if (process.env.NODE_ENV === "production" || process.env.REACT_APP_PREVIEW_MODE)
 ReactDOM.render(
   <React.StrictMode>
     <RuntimeContext.Provider value={runtime}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </RuntimeContext.Provider>
   </React.StrictMode>,
   document.getElementById("root")

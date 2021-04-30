@@ -30,11 +30,14 @@ export default async function searchEmployees(
       return [];
     }
 
-    // Just do what Apollo would have done if we didn't set errorPolicy: all
+    // Just do what Apollo would have done if we didn't set errorPolicy: "all"
     // TODO: Improve error handling for other error scenarios.
     throw new ApolloError({graphQLErrors: errors})
   }
 
 
-  return data.characters.results;
+  // Apollo cache does not cache errors for errorPolicy: "all", so still need a null check for results.
+  // Appears to be a known issue.
+  // https://github.com/apollographql/apollo-client/issues/4644
+  return data.characters?.results || [];
 }

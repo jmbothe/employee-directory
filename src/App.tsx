@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import EmployeeList from "./components/EmployeeTable";
-import SearchInput from "./components/SearchInput";
+import React from "react";
+import {
+  Redirect,
+  Route,
+  Switch
+} from "react-router-dom";
+import EmployeeSearch from "./components/EmployeeDirectory";
+import { employeesPath, rootPath } from "./pathnames";
 
 function App() {
-  const [searchValue, setSearchValue] = useState("");
-
   return (
-    <section>
-      <h1>Employee Directory</h1>
-      <SearchInput
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-      <EmployeeList
-        searchValue={searchValue}
-      />
-    </section>
+    <Switch>
+      <Route path={employeesPath}>
+        <EmployeeSearch />
+      </Route>
+      <Route path={rootPath}>
+        <Redirect to={employeesPath} />
+      </Route>
+    </Switch>
   );
 }
 
