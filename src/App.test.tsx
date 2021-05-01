@@ -1,15 +1,16 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
-import { EmployeeListItem } from "./domain/EmployeeListItem";
+import { Employee } from "./domain/Employee";
 import { Runtime } from "./domain/Runtime";
 import RuntimeContext from "./runtime/RuntimeContext";
 
 // react-router-dom doesn't export LocationDescriptor interface.
 let initialEntries: any;
-let employees: EmployeeListItem[];
+let employees: Employee[];
 let pages: number;
 
 // This is acceptable for a small test suit, but as the runtime grows and testing grows we'll need an adapter-test module.
@@ -36,11 +37,16 @@ function renderApp() {
 // setup default mock data before each test.
 beforeEach(async function () {
   initialEntries = undefined;
-  employees = [];
   pages = 1;
+  employees = [{
+    id: "1",
+    name: "Joan of Arc",
+    role: "Metalhead",
+    location: {name: "France", type: "country"}
+  }];
 });
 
-test("should render the employee directory page", async () => {
+test("should render the employee directory with loading indicator, and search for employees", async () => {
   render(renderApp());
 
   const mainHeading = screen.getByText("Employee Directory");
@@ -48,20 +54,13 @@ test("should render the employee directory page", async () => {
 
   expect(mainHeading).toBeInTheDocument();
   expect(listHeading).toBeInTheDocument();
-});
-
-test("should render loading indicator and search for employees", async () => {
-  // Mocking data in-test is fine for a small test suite, but a test data generator would be useful as testing grows.
-  employees = [{ id: "1", name: "Joan of Arc" }];
-
-  render(renderApp());
 
   userEvent.type(
     screen.getByLabelText("Search employees by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 
-  const loadingIndicator = await screen.findByText("loading...");
+  const loadingIndicator = await screen.findByText("Searching...");
 
   expect(loadingIndicator).toBeInTheDocument();
 
@@ -71,6 +70,8 @@ test("should render loading indicator and search for employees", async () => {
 });
 
 test("should render empty results message", async () => {
+  employees = [];
+
   render(renderApp());
 
   userEvent.type(
@@ -87,7 +88,6 @@ test("should render empty results message", async () => {
 
 test('should fetch employees on first load when url has "name" query param', async () => {
   initialEntries = ["/employees?name=arbitrary"];
-  employees = [{ id: "1", name: "Joan of Arc" }];
 
   render(renderApp());
 
@@ -99,7 +99,6 @@ test('should fetch employees on first load when url has "name" query param', asy
 });
 
 test("should paginate", async () => {
-  employees = [{ id: "1", name: "Joan of Arc" }];
   pages = 2;
 
   render(renderApp());
@@ -114,21 +113,20 @@ test("should paginate", async () => {
   const nextButton = await screen.findByText("next >");
 
   expect(paginationText).toBeInTheDocument();
-  expect(prevButton).toBeDisabled();
-  expect(nextButton).not.toBeDisabled();
+  expect(prevButton).toHaveClass("pagination-button--disabled");
+  expect(nextButton).not.toHaveClass("pagination-button--disabled");
 
   userEvent.click(nextButton);
 
   const paginationTextUpdated = await screen.findByText("Page 2 of 2");
 
   expect(paginationTextUpdated).toBeInTheDocument();
-  expect(prevButton).not.toBeDisabled();
-  expect(nextButton).toBeDisabled();
+  expect(prevButton).not.toHaveClass("pagination-button--disabled");
+  expect(nextButton).toHaveClass("pagination-button--disabled");
 });
 
 test('should paginate on first load when url has "page" query param', async () => {
   initialEntries = ["/employees?name=arbitrary&page=2"];
-  employees = [{ id: "1", name: "Joan of Arc" }];
   pages = 2;
 
   render(renderApp());
@@ -142,26 +140,10 @@ test('should paginate on first load when url has "page" query param', async () =
     "class",
     "pagination-button--disabled"
   );
-  expect(nextButton).toBeDisabled();
-});
-
-// Pending error handling/messaging.
-test("should ignore bad query params", async () => {
-  initialEntries = [
-    "/employees?name=index1&name=index2&page=index1&page=index2",
-  ];
-
-  render(renderApp());
-
-  // basically just testing that it doesn't barf.
-  const mainHeading = screen.getByText("Employee Directory");
-
-  expect(mainHeading).toBeInTheDocument();
+  expect(nextButton).toHaveClass("pagination-button--disabled");
 });
 
 test("should disable pagination with only one page of results", async () => {
-  employees = [{ id: "1", name: "Joan of Arc" }];
-
   render(renderApp());
 
   userEvent.type(
@@ -174,6 +156,6 @@ test("should disable pagination with only one page of results", async () => {
   const nextButton = await screen.findByText("next >");
 
   expect(paginationText).toBeInTheDocument();
-  expect(prevButton).toBeDisabled();
-  expect(nextButton).toBeDisabled();
+  expect(prevButton).toHaveClass("pagination-button--disabled");
+  expect(nextButton).toHaveClass("pagination-button--disabled");
 });

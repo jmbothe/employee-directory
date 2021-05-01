@@ -1,0 +1,5 @@
+/* Button is still in tab/screen reader flow, but disabled. */
+.pagination-button--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}

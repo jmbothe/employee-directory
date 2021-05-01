@@ -21,8 +21,8 @@ export default function SearchInput({
 }: SearchInputProps) {
   const { push } = useHistory();
   const [inputValue, setInputValue] = useState(searchValue);
-  const {getAppConfig} = useRuntime();
-  const {textInputDebounce} = getAppConfig();
+  const { getAppConfig } = useRuntime();
+  const { textInputDebounce } = getAppConfig();
 
   // Set input value to query param value on browser back/forward nav.
   // TODO: Sync with PM/UX/Devs/whoever to discuss whether this is actually a good pattern.
@@ -30,19 +30,19 @@ export default function SearchInput({
 
   // Prevent fetching list of employees on every key stroke.
   const debouncedPush = useMemo(
-    () =>
-      debounce(function (name: string): void {
+    function () {
+      return debounce(function (name: string): void {
         const search = stringify({ name });
 
-        push({ search });
         setIsReceivingInput(false);
-      }, textInputDebounce),
+        push({ search });
+      }, textInputDebounce);
+    },
     [push, setIsReceivingInput, textInputDebounce]
   );
 
   const handleChange = useCallback(
     function (event: ChangeEvent<HTMLInputElement>): void {
-      // Immediately signal to user that search is in progress, even though data fetching is debounced.
       setIsReceivingInput(true);
       setInputValue(event.target.value);
       debouncedPush(event.target.value);
@@ -54,7 +54,7 @@ export default function SearchInput({
     <>
       <label>
         <span>Search employees by name</span>
-        <input type="text" value={inputValue || ""} onChange={handleChange} />
+        <input type="text" value={inputValue} onChange={handleChange} />
       </label>
     </>
   );

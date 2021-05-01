@@ -9,6 +9,11 @@ export default gql`
       results {
         id
         name
+        species
+        location {
+          name
+          type
+        }
       }
     }
   }

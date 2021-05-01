@@ -5,7 +5,7 @@ import {
   normalizeNameQueryParameter,
   normalizePageQueryParameter,
 } from "../utils";
-import EmployeeList from "./EmployeeTable";
+import EmployeeTable from "./EmployeeTable";
 import SearchInput from "./SearchInput";
 
 export default function EmployeeDirectory() {
@@ -17,6 +17,7 @@ export default function EmployeeDirectory() {
   const pageValue = normalizePageQueryParameter(page);
 
   // `true` while user is typing in search text input.
+  // This immediately signals that search is in progress, even though data fetching is debounced.
   const [isReceivingInput, setIsReceivingInput] = useState(false);
 
   return (
@@ -26,7 +27,7 @@ export default function EmployeeDirectory() {
         searchValue={searchValue}
         setIsReceivingInput={setIsReceivingInput}
       />
-      <EmployeeList
+      <EmployeeTable
         isReceivingInput={isReceivingInput}
         searchValue={searchValue}
         pageValue={pageValue}

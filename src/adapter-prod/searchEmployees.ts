@@ -1,22 +1,19 @@
 import {
   ApolloClient,
   ApolloError,
-  NormalizedCacheObject,
+  NormalizedCacheObject
 } from "@apollo/client";
 import { SearchEmployeesResult } from "../domain/SearchEmployeesResult";
+import { EmployeeDto } from "./EmployeeDto";
 import searchEmployeesQuery from "./searchEmployeesQuery";
-
-interface EmployeeListItemDto {
-  id: string;
-  name: string;
-}
+import toEmployee from "./toEmployee";
 
 interface QueryResult {
   characters: {
     info: {
       pages: number;
     };
-    results: EmployeeListItemDto[];
+    results: EmployeeDto[];
   };
 }
 
@@ -50,7 +47,7 @@ export default async function searchEmployees(
   // Appears to be a known issue.
   // https://github.com/apollographql/apollo-client/issues/4644
   return {
-    pages: data.characters?.info.pages || 1,
-    employees: data.characters?.results || [],
+    pages: data.characters?.info.pages ?? 1,
+    employees: (data.characters?.results ?? []).map(toEmployee),
   };
 }

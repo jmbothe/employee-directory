@@ -1,47 +1,51 @@
 import { stringify } from "query-string";
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import "./Pagination.css";
 
 interface PaginationProps {
   pageValue: number;
   pageCount: number;
   searchValue: string;
-  isVisible: boolean;
 }
 
 export default function Pagination({
   pageValue,
   pageCount,
   searchValue,
-  isVisible,
 }: PaginationProps) {
   const { push } = useHistory();
 
   const handleButtonClick = useCallback(
-    function (event): void {
+    function ({ target }): void {
+      const { value } = target;
+
+      // bail if update would cause navigate out of page bounds.
+      // Need this because button is accessibly disabled.
+      if (value > pageCount || value < 1) {
+        return;
+      }
+
       const search = stringify({
-        page: event.target.value,
+        page: value,
         name: searchValue,
       });
 
       push({ search });
     },
-    [push, searchValue]
+    [push, searchValue, pageCount]
   );
 
-  if (pageCount <= 0 || !isVisible) {
-    return null;
-  }
+  const disabledClassName = "pagination-button--disabled";
+  const isDisabledPrev = pageValue < 2;
+  const isDisabledNext = pageValue >= pageCount;
 
   return (
     <section>
-      <h3>
-        Page {pageValue} of {pageCount}
-      </h3>
       <button
         aria-label="show previous page"
-        // TODO: accessible button disabling
-        disabled={pageValue < 2}
+        aria-disabled={isDisabledPrev}
+        className={isDisabledPrev ? disabledClassName : ""}
         value={pageValue - 1}
         onClick={handleButtonClick}
       >
@@ -49,8 +53,8 @@ export default function Pagination({
       </button>
       <button
         aria-label="show next page"
-        // TODO: accessible button disabling
-        disabled={pageValue >= pageCount}
+        aria-disabled={isDisabledNext}
+        className={isDisabledNext ? disabledClassName : ""}
         value={pageValue + 1}
         onClick={handleButtonClick}
       >

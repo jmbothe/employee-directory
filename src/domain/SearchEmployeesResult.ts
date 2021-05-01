@@ -1,6 +1,6 @@
-import { EmployeeListItem } from "./EmployeeListItem";
+import { Employee } from "./Employee";
 
 export interface SearchEmployeesResult {
     pages: number;
-    employees: EmployeeListItem[];
+    employees: Employee[];
 }
