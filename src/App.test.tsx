@@ -4,7 +4,7 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import { EmployeeListItem } from "./domain/EmployeeListItem";
-import { Runtime } from "./runtime/Runtime";
+import { Runtime } from "./domain/Runtime";
 import RuntimeContext from "./runtime/RuntimeContext";
 
 // react-router-dom doesn't export LocationDescriptor interface.
@@ -17,6 +17,10 @@ const runtime: Runtime = {
   getEmployeeRepository: () => ({
     searchEmployees: jest.fn(() => Promise.resolve({ employees, pages })),
   }),
+  getAppConfig: () => ({
+    // Cuts significant time from tests that update the search text.
+    textInputDebounce: 0
+  })
 };
 
 function renderApp() {

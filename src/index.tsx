@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { Runtime } from "./runtime/Runtime";
+import { Runtime } from "./domain/Runtime";
 import RuntimeContext from "./runtime/RuntimeContext";
 
 let runtime: Runtime;

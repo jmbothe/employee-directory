@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { Runtime } from "../runtime/Runtime";
+import { Runtime } from "../domain/Runtime";
 import createEmployeeRepository from "./createEmployeeRepository";
+import getAppConfig from "./getAppConfig";
 
 export default function createProdRuntime(): Runtime {
     const gqlClient = new ApolloClient({
@@ -12,6 +13,7 @@ export default function createProdRuntime(): Runtime {
     const employeeRepository = createEmployeeRepository(gqlClient);
 
     return {
-        getEmployeeRepository: () => employeeRepository
+        getEmployeeRepository: () => employeeRepository,
+        getAppConfig
     };
 }

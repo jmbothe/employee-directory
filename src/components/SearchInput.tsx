@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import { useHistory } from "react-router";
+import useRuntime from "../runtime/useRuntime";
 
 interface SearchInputProps {
   searchValue: string;
@@ -20,6 +21,8 @@ export default function SearchInput({
 }: SearchInputProps) {
   const { push } = useHistory();
   const [inputValue, setInputValue] = useState(searchValue);
+  const {getAppConfig} = useRuntime();
+  const {textInputDebounce} = getAppConfig();
 
   // Set input value to query param value on browser back/forward nav.
   // TODO: Sync with PM/UX/Devs/whoever to discuss whether this is actually a good pattern.
@@ -33,8 +36,8 @@ export default function SearchInput({
 
         push({ search });
         setIsReceivingInput(false);
-      }, 500),
-    [push, setIsReceivingInput]
+      }, textInputDebounce),
+    [push, setIsReceivingInput, textInputDebounce]
   );
 
   const handleChange = useCallback(
