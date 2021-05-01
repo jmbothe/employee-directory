@@ -2,11 +2,14 @@ import { ParsedQuery } from "query-string";
 
 export type ValueOf<T> = T[keyof T];
 
-// no tolerance for anything but a simple sting :)
-export function normalizeQueryParameter(query: ValueOf<ParsedQuery>): string {
-  if (typeof query === "string") {
-    return query;
-  }
+export function normalizeNameQueryParameter(
+  query: ValueOf<ParsedQuery>
+): string {
+  return typeof query === "string" ? query : "";
+}
 
-  return "";
+export function normalizePageQueryParameter(
+  query: ValueOf<ParsedQuery>
+): number {
+  return typeof query === "string" ? +query : 1;
 }

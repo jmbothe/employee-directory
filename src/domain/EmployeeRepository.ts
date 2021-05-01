@@ -1,5 +1,5 @@
-import { EmployeeListItem } from "./EmployeeListItem";
+import { SearchEmployeesResult } from "./SearchEmployeesResult";
 
 export interface EmployeeRepository {
-    searchEmployees(name: string): Promise<EmployeeListItem[]>;
+    searchEmployees(name: string, page?: number): Promise<SearchEmployeesResult>;
 }

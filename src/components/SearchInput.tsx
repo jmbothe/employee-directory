@@ -5,22 +5,21 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState
+  useState,
 } from "react";
 import { useHistory } from "react-router";
 
 interface SearchInputProps {
-  searchValue?: string;
-  isLoadingResults: boolean;
+  searchValue: string;
+  setIsReceivingInput(state: boolean): void;
 }
 
 export default function SearchInput({
   searchValue,
-  isLoadingResults,
+  setIsReceivingInput,
 }: SearchInputProps) {
   const { push } = useHistory();
   const [inputValue, setInputValue] = useState(searchValue);
-  const [isSearching, setIsSearching] = useState(false);
 
   // Set input value to query param value on browser back/forward nav.
   // TODO: Sync with PM/UX/Devs/whoever to discuss whether this is actually a good pattern.
@@ -28,33 +27,31 @@ export default function SearchInput({
 
   // Prevent fetching list of employees on every key stroke.
   const debouncedPush = useMemo(
-    () => debounce(function (name: string) {
-      push({ search: stringify({ name }) });
-      setIsSearching(false);
-    }, 500),
-    [push]
+    () =>
+      debounce(function (name: string): void {
+        const search = stringify({ name });
+
+        push({ search });
+        setIsReceivingInput(false);
+      }, 500),
+    [push, setIsReceivingInput]
   );
 
   const handleChange = useCallback(
-    function (event: ChangeEvent<HTMLInputElement>) {
+    function (event: ChangeEvent<HTMLInputElement>): void {
       // Immediately signal to user that search is in progress, even though data fetching is debounced.
-      setIsSearching(true);
+      setIsReceivingInput(true);
       setInputValue(event.target.value);
       debouncedPush(event.target.value);
     },
-    [debouncedPush]
+    [debouncedPush, setIsReceivingInput]
   );
 
   return (
     <>
       <label>
         <span>Search employees by name</span>
-        <input
-          type="text"
-          value={inputValue || ""}
-          onChange={handleChange}
-        />
-        {(isSearching || isLoadingResults) && "loading..."}
+        <input type="text" value={inputValue || ""} onChange={handleChange} />
       </label>
     </>
   );

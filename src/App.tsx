@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  Redirect,
-  Route,
-  Switch
-} from "react-router-dom";
-import EmployeeSearch from "./components/EmployeeDirectory";
+import { Redirect, Route, Switch } from "react-router-dom";
+import EmployeeDirectory from "./components/EmployeeDirectory";
 import { employeesPath, rootPath } from "./pathnames";
 
-function App() {
+export default function App() {
   return (
     <Switch>
       <Route path={employeesPath}>
-        <EmployeeSearch />
+        <EmployeeDirectory />
       </Route>
       <Route path={rootPath}>
         <Redirect to={employeesPath} />
@@ -19,5 +15,3 @@ function App() {
     </Switch>
   );
 }
-
-export default App;

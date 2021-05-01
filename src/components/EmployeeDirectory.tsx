@@ -1,30 +1,36 @@
 import { parse } from "query-string";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { normalizeQueryParameter } from "../utils";
+import {
+  normalizeNameQueryParameter,
+  normalizePageQueryParameter,
+} from "../utils";
 import EmployeeList from "./EmployeeTable";
 import SearchInput from "./SearchInput";
 
-function EmployeeSearch() {
-  // query param is the ultimate source of truth for the search value.
+export default function EmployeeDirectory() {
+  // query param is the ultimate source of truth for the search value and page number.
   const location = useLocation();
-  const { name } = parse(location.search);
-  const searchValue = normalizeQueryParameter(name);
-  const [isLoadingResults, setIsLoadingResults] = useState(false);
+  const { name, page } = parse(location.search);
+  // TODO: error handling/messaging for bad query params?
+  const searchValue = normalizeNameQueryParameter(name);
+  const pageValue = normalizePageQueryParameter(page);
+
+  // `true` while user is typing in search text input.
+  const [isReceivingInput, setIsReceivingInput] = useState(false);
 
   return (
     <section>
       <h1>Employee Directory</h1>
       <SearchInput
-        isLoadingResults={isLoadingResults}
         searchValue={searchValue}
+        setIsReceivingInput={setIsReceivingInput}
       />
       <EmployeeList
-        setIsLoadingResults={setIsLoadingResults}
+        isReceivingInput={isReceivingInput}
         searchValue={searchValue}
+        pageValue={pageValue}
       />
     </section>
   );
 }
-
-export default EmployeeSearch;

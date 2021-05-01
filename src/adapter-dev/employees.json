@@ -1,78 +1,272 @@
 [
-    {
-        "id": "1",
-        "name": "Rick Sanchez"
-      },
-      {
-        "id": "2",
-        "name": "Morty Smith"
-      },
-      {
-        "id": "3",
-        "name": "Summer Smith"
-      },
-      {
-        "id": "4",
-        "name": "Beth Smith"
-      },
-      {
-        "id": "5",
-        "name": "Jerry Smith"
-      },
-      {
-        "id": "6",
-        "name": "Abadango Cluster Princess"
-      },
-      {
-        "id": "8",
-        "name": "Adjudicator Rick"
-      },
-      {
-        "id": "9",
-        "name": "Agency Director"
-      },
-      {
-        "id": "10",
-        "name": "Alan Rails"
-      },
-      {
-        "id": "11",
-        "name": "Albert Einstein"
-      },
-      {
-        "id": "12",
-        "name": "Alexander"
-      },
-      {
-        "id": "13",
-        "name": "Alien Googah"
-      },
-      {
-        "id": "14",
-        "name": "Alien Morty"
-      },
-      {
-        "id": "15",
-        "name": "Alien Rick"
-      },
-      {
-        "id": "16",
-        "name": "Amish Cyborg"
-      },
-      {
-        "id": "17",
-        "name": "Annie"
-      },
-      {
-        "id": "18",
-        "name": "Antenna Morty"
-      },
-      {
-        "id": "19",
-        "name": "Antenna Rick"
-      },
-      {
-        "id": "20",
-        "name": "Ants in my Eyes Johnson"
-      }
+  {
+    "id": "181",
+    "name": "Jessica's Friend",
+    "role": "Human",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "182",
+    "name": "Jim",
+    "role": "Human",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "183",
+    "name": "Johnny Depp",
+    "role": "Human",
+    "location": {
+      "name": "Earth (C-500A)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "184",
+    "name": "Jon",
+    "role": "Alien",
+    "location": {
+      "name": "Interdimensional Cable",
+      "type": "TV"
+    }
+  },
+  {
+    "id": "185",
+    "name": "Joseph Eli Lipkip",
+    "role": "Human",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "186",
+    "name": "Joyce Smith",
+    "role": "Human",
+    "location": {
+      "name": "Earth (C-137)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "187",
+    "name": "Juggling Rick",
+    "role": "Human",
+    "location": {
+      "name": "Citadel of Ricks",
+      "type": "Space station"
+    }
+  },
+  {
+    "id": "188",
+    "name": "Karen Entity",
+    "role": "Alien",
+    "location": {
+      "name": "Unity's Planet",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "189",
+    "name": "Katarina",
+    "role": "Human",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "190",
+    "name": "Keara",
+    "role": "Alien",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "191",
+    "name": "Kevin",
+    "role": "Alien",
+    "location": {
+      "name": "Zigerion's Base",
+      "type": "Space station"
+    }
+  },
+  {
+    "id": "193",
+    "name": "King Jellybean",
+    "role": "Mythological Creature",
+    "location": {
+      "name": "Fantasy World",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "194",
+    "name": "Kozbian",
+    "role": "Alien",
+    "location": {
+      "name": "Planet Squanch",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "195",
+    "name": "Kristen Stewart",
+    "role": "Human",
+    "location": {
+      "name": "Earth (C-500A)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "197",
+    "name": "Kyle",
+    "role": "Humanoid",
+    "location": {
+      "name": "Kyle's Teenyverse",
+      "type": "Teenyverse"
+    }
+  },
+  {
+    "id": "198",
+    "name": "Lady Katana",
+    "role": "Humanoid",
+    "location": {
+      "name": "Dorian 5",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "199",
+    "name": "Larva Alien",
+    "role": "Alien",
+    "location": {
+      "name": "Planet Squanch",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "200",
+    "name": "Lawyer Morty",
+    "role": "Human",
+    "location": {
+      "name": "Citadel of Ricks",
+      "type": "Space station"
+    }
+  },
+  {
+    "id": "201",
+    "name": "Leonard Smith",
+    "role": "Human",
+    "location": {
+      "name": "Earth (C-137)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "202",
+    "name": "Lighthouse Keeper",
+    "role": "Alien",
+    "location": {
+      "name": "Purge Planet",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "203",
+    "name": "Lil B",
+    "role": "Alien",
+    "location": {
+      "name": "Planet Squanch",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "204",
+    "name": "Lisa",
+    "role": "Alien",
+    "location": {
+      "name": "Immortality Field Resort",
+      "type": "Resort"
+    }
+  },
+  {
+    "id": "205",
+    "name": "Little Dipper",
+    "role": "Humanoid",
+    "location": {
+      "name": "Interdimensional Cable",
+      "type": "TV"
+    }
+  },
+  {
+    "id": "206",
+    "name": "Lizard Morty",
+    "role": "Humanoid",
+    "location": {
+      "name": "Citadel of Ricks",
+      "type": "Space station"
+    }
+  },
+  {
+    "id": "207",
+    "name": "Loggins",
+    "role": "Alien",
+    "location": {
+      "name": "Interdimensional Cable",
+      "type": "TV"
+    }
+  },
+  {
+    "id": "208",
+    "name": "Logic",
+    "role": "Human",
+    "location": {
+      "name": "Worldender's lair",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "209",
+    "name": "Long Sleeved Morty",
+    "role": "Human",
+    "location": {
+      "name": "Citadel of Ricks",
+      "type": "Space station"
+    }
+  },
+  {
+    "id": "210",
+    "name": "Lucy",
+    "role": "Human",
+    "location": {
+      "name": "Earth (Replacement Dimension)",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "211",
+    "name": "Ma-Sha",
+    "role": "Alien",
+    "location": {
+      "name": "Gazorpazorp",
+      "type": "Planet"
+    }
+  },
+  {
+    "id": "212",
+    "name": "Magma-Q",
+    "role": "Alien",
+    "location": {
+      "name": "Alphabetrium",
+      "type": "Planet"
+    }
+  }
 ]

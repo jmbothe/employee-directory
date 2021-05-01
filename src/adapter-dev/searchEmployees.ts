@@ -1,20 +1,26 @@
-import { EmployeeListItem } from "../domain/EmployeeListItem";
-import employees from "./employees.json";
 import delay from "delay";
+import { SearchEmployeesResult } from "../domain/SearchEmployeesResult";
+import employees from "./employees.json";
 
+// Returns mock data from json file.
 export default async function searchEmployees(
-  name: string
-): Promise<EmployeeListItem[]> {
+  name: string,
+  page: number
+): Promise<SearchEmployeesResult> {
   // Set delay so devs can see loading state.
-  await delay(1000);
+  await delay(700);
 
-  const fullList = employees as EmployeeListItem[];
+  const pageSize = 15;
+  const startSlice = (page - 1) * pageSize;
+  const endSlice = page * pageSize;
 
-  if (!name) {
-    return Promise.resolve(fullList);
-  }
+  const filteredEmployees = employees
+    .filter(({name: employeeName}) => (new RegExp(name, "i")).test(employeeName))
+  const paginatedEmployees = filteredEmployees.slice(startSlice, endSlice);
+  const pages = Math.ceil(filteredEmployees.length / pageSize) || 1;
 
-  // Dev repository methods do not need to be logical. i.e., results dont have to match search text.
-  // Instead we just need some quick/simple code that allows us to see what the screen looks like with all/some/none results.
-  return fullList.filter((_, index) => index < fullList.length - name.length);
+  return {
+    employees: paginatedEmployees,
+    pages,
+  };
 }
