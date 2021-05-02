@@ -1,0 +1,108 @@
+.employee-directory {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: auto;
+  background-color: #fff;
+}
+
+.employee-directory__heading,
+.employee-table__message,
+.pagination,
+.search-input {
+  margin: 0 2rem 1rem 2rem;
+}
+
+.employee-table__message,
+.pagination {
+  display: inline-block;
+}
+
+.pagination {
+  margin-right: 0;
+}
+
+.employee-table__message {
+  font-size: 1.25rem;
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.pagination__button {
+  margin-right: 1rem;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.pagination__button:hover {
+  background-color: #e3f2fd;
+}
+
+/* Button is still in tab/screen reader flow, but disabled. */
+.pagination__button--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.employee-directory__heading {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.search-input__label {
+  margin-bottom: 0.5rem;
+}
+
+.employee-table-container {
+  padding: 0 2rem 1rem 2rem;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-table--stale {
+  color: #757575;
+}
+
+tr:nth-child(odd) {
+  background-color: #e3f2fd;
+}
+
+td,
+th {
+  width: 25%;
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+
+tr.employee-table__first-row {
+  font-weight: bold;
+  color: white;
+  background-color: #1976d2;
+}
+
+/* borrowed animation: https://codepen.io/mandelid/pen/vwKoe */
+.loading-spinner {
+  display: inline-block;
+  width: 0.95rem;
+  height: 0.95rem;
+  border: 2px solid #c1e5ff;
+  border-radius: 50%;
+  border-top-color: #1976d2;
+  animation: spin 700ms ease-in-out infinite;
+  -webkit-animation: spin 700ms ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

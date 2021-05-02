@@ -6,7 +6,7 @@ export default function useRuntime(): Runtime {
     const runtime = useContext(RuntimeContext);
 
     if (!runtime) {
-        throw new Error("No runtime was found in App context.");
+        throw new Error("No runtime found.");
     }
 
     return runtime;

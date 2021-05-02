@@ -12,6 +12,7 @@ export default function App() {
       <Route path={rootPath}>
         <Redirect to={employeesPath} />
       </Route>
+      {/** TODO: Custom 404 page, Error page, etc. */}
     </Switch>
   );
 }

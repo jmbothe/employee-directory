@@ -1,65 +1,71 @@
-import { stringify } from "query-string";
-import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import "./Pagination.css";
+import classNames from "classnames";
+import React from "react";
+import useHandlePagination from "../hooks/useHandlePagination";
+import useQueryString from "../hooks/useQueryString";
 
 interface PaginationProps {
-  pageValue: number;
   pageCount: number;
-  searchValue: string;
+  willLoadResults: boolean;
+  isLoadingResults: boolean;
+  isReceivingInput: boolean;
+  isEmptyResults: boolean;
 }
 
 export default function Pagination({
-  pageValue,
   pageCount,
-  searchValue,
+  willLoadResults,
+  isLoadingResults,
+  isReceivingInput,
+  isEmptyResults
 }: PaginationProps) {
-  const { push } = useHistory();
+  const { pageValue } = useQueryString();
+  const handlePagination = useHandlePagination(pageCount);
 
-  const handleButtonClick = useCallback(
-    function ({ target }): void {
-      const { value } = target;
+  const buttonClassName = "pagination__button";
+  const disabledButtonClassName = "pagination__button--disabled";
+  const isDisabledPrev = pageValue < 2 || willLoadResults;
+  const isDisabledNext = pageValue >= pageCount || willLoadResults;
 
-      // bail if update would cause navigate out of page bounds.
-      // Need this because button is accessibly disabled.
-      if (value > pageCount || value < 1) {
-        return;
-      }
+  const messageText = (isReceivingInput || willLoadResults)
+  ? "Searching..."
+  : isEmptyResults
+    ? "Sorry, no results. Try expanding your search criteria."
+    : `Page ${pageValue} of ${pageCount}`;
 
-      const search = stringify({
-        page: value,
-        name: searchValue,
-      });
-
-      push({ search });
-    },
-    [push, searchValue, pageCount]
+  const loadingSpinner = (isReceivingInput || willLoadResults || isLoadingResults) && (
+    <div className="loading-spinner" />
   );
 
-  const disabledClassName = "pagination-button--disabled";
-  const isDisabledPrev = pageValue < 2;
-  const isDisabledNext = pageValue >= pageCount;
-
   return (
-    <section>
+    <section className="pagination">
       <button
         aria-label="show previous page"
         aria-disabled={isDisabledPrev}
-        className={isDisabledPrev ? disabledClassName : ""}
+        className={classNames({
+          [buttonClassName]: true,
+          [disabledButtonClassName]: isDisabledPrev,
+        })}
         value={pageValue - 1}
-        onClick={handleButtonClick}
+        onClick={handlePagination}
       >
         {"< prev"}
       </button>
       <button
         aria-label="show next page"
         aria-disabled={isDisabledNext}
-        className={isDisabledNext ? disabledClassName : ""}
+        className={classNames({
+          [buttonClassName]: true,
+          [disabledButtonClassName]: isDisabledNext,
+        })}
         value={pageValue + 1}
-        onClick={handleButtonClick}
+        onClick={handlePagination}
       >
         {"next >"}
       </button>
+      <p className="employee-table__message">
+        {messageText}
+      </p>
+      {loadingSpinner}
     </section>
   );
 }

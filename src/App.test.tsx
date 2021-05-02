@@ -1,7 +1,6 @@
-import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import { Employee } from "./domain/Employee";
@@ -13,7 +12,7 @@ let initialEntries: any;
 let employees: Employee[];
 let pages: number;
 
-// This is acceptable for a small test suit, but as the runtime grows and testing grows we'll need an adapter-test module.
+// This is acceptable for a small test suit, but as testing grows we'll need an adapter-test module.
 const runtime: Runtime = {
   getEmployeeRepository: () => ({
     searchEmployees: jest.fn(() => Promise.resolve({ employees, pages })),
@@ -46,23 +45,21 @@ beforeEach(async function () {
   }];
 });
 
-test("should render the employee directory with loading indicator, and search for employees", async () => {
+test("should render the employee directory with searching indicator, and search for employees", async () => {
   render(renderApp());
 
   const mainHeading = screen.getByText("Employee Directory");
-  const listHeading = screen.getByText("Search Results");
 
   expect(mainHeading).toBeInTheDocument();
-  expect(listHeading).toBeInTheDocument();
 
   userEvent.type(
     screen.getByLabelText("Search employees by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 
-  const loadingIndicator = await screen.findByText("Searching...");
+  const searchingIndicator = await screen.findByText("Searching...");
 
-  expect(loadingIndicator).toBeInTheDocument();
+  expect(searchingIndicator).toBeInTheDocument();
 
   const employee = await screen.findByText("Joan of Arc");
 
@@ -113,16 +110,16 @@ test("should paginate", async () => {
   const nextButton = await screen.findByText("next >");
 
   expect(paginationText).toBeInTheDocument();
-  expect(prevButton).toHaveClass("pagination-button--disabled");
-  expect(nextButton).not.toHaveClass("pagination-button--disabled");
+  expect(prevButton).toHaveClass("pagination__button--disabled");
+  expect(nextButton).not.toHaveClass("pagination__button--disabled");
 
   userEvent.click(nextButton);
 
   const paginationTextUpdated = await screen.findByText("Page 2 of 2");
 
   expect(paginationTextUpdated).toBeInTheDocument();
-  expect(prevButton).not.toHaveClass("pagination-button--disabled");
-  expect(nextButton).toHaveClass("pagination-button--disabled");
+  expect(prevButton).not.toHaveClass("pagination__button--disabled");
+  expect(nextButton).toHaveClass("pagination__button--disabled");
 });
 
 test('should paginate on first load when url has "page" query param', async () => {
@@ -138,12 +135,12 @@ test('should paginate on first load when url has "page" query param', async () =
   expect(paginationText).toBeInTheDocument();
   expect(prevButton).not.toHaveAttribute(
     "class",
-    "pagination-button--disabled"
+    "pagination__button--disabled"
   );
-  expect(nextButton).toHaveClass("pagination-button--disabled");
+  expect(nextButton).toHaveClass("pagination__button--disabled");
 });
 
-test("should disable pagination with only one page of results", async () => {
+test("should disable pagination when there is only one page of results", async () => {
   render(renderApp());
 
   userEvent.type(
@@ -156,6 +153,6 @@ test("should disable pagination with only one page of results", async () => {
   const nextButton = await screen.findByText("next >");
 
   expect(paginationText).toBeInTheDocument();
-  expect(prevButton).toHaveClass("pagination-button--disabled");
-  expect(nextButton).toHaveClass("pagination-button--disabled");
+  expect(prevButton).toHaveClass("pagination__button--disabled");
+  expect(nextButton).toHaveClass("pagination__button--disabled");
 });
