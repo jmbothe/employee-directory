@@ -4,6 +4,10 @@ This is a demo of a basic single-page web application that asynchronously fetche
 
 The main purpose is to demonstrate some software design patterns I have been using lately: namely [UI runtime dependency injection](https://en.wikipedia.org/wiki/Dependency_injection), but also experimenting with url as a state store.
 
+## Live Demo
+
+[Click here to see the app in action.](http://employee-directory-demo.s3-website-us-east-1.amazonaws.com/employees)
+
 ## Getting Started
 
 ### First, [install Node.js](https://nodejs.org). Then...
