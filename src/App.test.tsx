@@ -53,7 +53,7 @@ test("should render the employee directory with searching indicator, and search 
   expect(mainHeading).toBeInTheDocument();
 
   userEvent.type(
-    screen.getByLabelText("Search employees by name"),
+    screen.getByLabelText("Search by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 
@@ -72,7 +72,7 @@ test("should render empty results message", async () => {
   render(renderApp());
 
   userEvent.type(
-    screen.getByLabelText("Search employees by name"),
+    screen.getByLabelText("Search by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 
@@ -89,7 +89,7 @@ test('should fetch employees on first load when url has "name" query param', asy
   render(renderApp());
 
   const employee = await screen.findByText("Joan of Arc");
-  const searchInput = screen.getByLabelText("Search employees by name");
+  const searchInput = screen.getByLabelText("Search by name");
 
   expect(employee).toBeInTheDocument();
   expect(searchInput).toHaveValue("arbitrary");
@@ -101,7 +101,7 @@ test("should paginate", async () => {
   render(renderApp());
 
   userEvent.type(
-    screen.getByLabelText("Search employees by name"),
+    screen.getByLabelText("Search by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 
@@ -144,7 +144,7 @@ test("should disable pagination when there is only one page of results", async (
   render(renderApp());
 
   userEvent.type(
-    screen.getByLabelText("Search employees by name"),
+    screen.getByLabelText("Search by name"),
     "Arbitrary string cuz we're not testing the API"
   );
 

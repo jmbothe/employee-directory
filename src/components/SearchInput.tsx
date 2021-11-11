@@ -13,7 +13,7 @@ export default function SearchInput({ setIsReceivingInput }: SearchInputProps) {
   return (
     <section className="search-input">
       <label>
-        <div className="search-input__label">Search employees by name</div>
+        <div className="search-input__label">Search by name</div>
         <input type="text" value={inputValue} onChange={handleSearchChange} />
       </label>
     </section>

@@ -55,11 +55,13 @@
 }
 
 .employee-table-container {
+  overflow: scroll;
   padding: 0 2rem 1rem 2rem;
 }
 
 .employee-table {
   width: 100%;
+  min-width: 700px;
   border-collapse: collapse;
 }
 
@@ -73,7 +75,7 @@ tr:nth-child(odd) {
 
 td,
 th {
-  width: 25%;
+  width: min-content;
   border: 1px solid black;
   padding: 0.5rem;
 }
